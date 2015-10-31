@@ -3,3 +3,4 @@ version: 0.0.1
 description: A really small Minecraft Spigot Plugin to tell a player his inventory is full.
 author: MCLovesMy
 main: nl.MCLovesMy.Main
+
