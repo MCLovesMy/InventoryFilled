@@ -15,9 +15,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Main extends JavaPlugin implements Listener, CommandExecutor{
 	
     public void onEnable() {
-        this.getConfig().options().copyDefaults(true);
         Bukkit.getServer().getPluginManager().registerEvents((Listener)this, (Plugin)this);
-        this.saveConfig();
     }
 	
 	//Main Command
