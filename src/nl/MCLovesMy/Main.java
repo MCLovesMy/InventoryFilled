@@ -1,5 +1,6 @@
 package nl.MCLovesMy;
 
+import me.AdityaTD.TitlesAPI.TitlesAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -15,6 +16,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Main extends JavaPlugin implements Listener, CommandExecutor{
 	
     public void onEnable() {
+    	getConfig().options().copyDefaults(true);
+    	saveConfig();
         Bukkit.getServer().getPluginManager().registerEvents((Listener)this, (Plugin)this);
     }
 	
@@ -48,7 +51,11 @@ public class Main extends JavaPlugin implements Listener, CommandExecutor{
                         }
                     }
                     if (i==34) {
+                    	if(getConfig().getBoolean("Chat-warning")) {
                         e.getPlayer().sendMessage(ChatColor.RED + "You can't pickup " + item.getType() + ChatColor.RED + ", your inventory is full!");
+                    	} else {
+                    		return;
+                    	}
                     }
                 }
             }
