@@ -12,9 +12,14 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import de.inventivegames.util.tellraw.TellrawConverterLite;
+import de.inventivegames.util.title.TitleManager;
+
 public class Main extends JavaPlugin implements Listener, CommandExecutor{
 	
     public void onEnable() {
+    	getConfig().options().copyDefaults(true);
+    	saveConfig();
         Bukkit.getServer().getPluginManager().registerEvents((Listener)this, (Plugin)this);
     }
 	
@@ -48,7 +53,16 @@ public class Main extends JavaPlugin implements Listener, CommandExecutor{
                         }
                     }
                     if (i==34) {
+                    	if(getConfig().getBoolean("Chat-warning")) 
                         e.getPlayer().sendMessage(ChatColor.RED + "You can't pickup " + item.getType() + ChatColor.RED + ", your inventory is full!");
+                    	if (getConfig().getBoolean("Title-warning")) {
+                    		TitleManager.sendTimings(e.getPlayer(), 5, 30, 15);
+                    		TitleManager.sendTitle(e.getPlayer(), "{\"text\":\"\",\"extra\":[{\"text\":\"Inventory Full\",\"color\":\"red\"}]}");
+                    		String raw1 = TellrawConverterLite.convertToJSON(ChatColor.BLUE + "You can't pickup " + item.getType());
+                    		TitleManager.sendSubTitle(e.getPlayer(), raw1);
+                    	} else {
+                    		return;
+                    	}
                     }
                 }
             }
