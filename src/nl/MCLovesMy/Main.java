@@ -13,10 +13,11 @@ public class Main extends JavaPlugin implements CommandExecutor{
 		if (cmd.getName().equalsIgnoreCase("inventoryfull")) {
 			p.sendMessage(ChatColor.BLUE + "InventoryFull has no commands! Just fill your inventory and see!");
 		}
+		else if (cmd.getName().equalsIgnoreCase("if")) {
+			p.sendMessage(ChatColor.BLUE + "InventoryFull has no commands! Just fill your inventory and see!");
+		}
 		return false;
 	}
 
-	
-	
-	
+		
 }
