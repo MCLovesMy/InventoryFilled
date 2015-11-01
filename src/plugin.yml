@@ -6,3 +6,5 @@
   commands:
      inventoryfull:
        description: The main InventoryFull command.
+     if:
+       description: The main InventoryFull command.
