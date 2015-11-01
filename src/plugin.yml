@@ -1,5 +1,5 @@
   name: InventoryFilled
-  version: 0.2.9
+  version: 1.0.0
   description: A really small Minecraft Spigot Plugin to tell a player his inventory is full.
   author: MCLovesMy
   main: nl.MCLovesMy.Main
