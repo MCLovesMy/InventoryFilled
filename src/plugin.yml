@@ -1,10 +1,12 @@
   name: InventoryFilled
-  version: 0.0.1
+  version: 0.2.9
   description: A really small Minecraft Spigot Plugin to tell a player his inventory is full.
   author: MCLovesMy
   main: nl.MCLovesMy.Main
   commands:
-     inventoryfull:
-       description: The main InventoryFull command.
+     inventoryfilled:
+       description: The main InventoryFilled command.
+       usage: /InventoryFilled
      if:
-       description: The main InventoryFull command.
+       description: The main InventoryFilled command.
+       usage: /if
