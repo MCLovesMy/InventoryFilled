@@ -1,1 +1,5 @@
+##The main config file for InventoryFilled.
+##Here you can change all the settings. You can set more than 1 option to true. 
+##Then the players will get, ofcourse, multiple warnings!
 Chat-warning: true
+Title-warning: true
