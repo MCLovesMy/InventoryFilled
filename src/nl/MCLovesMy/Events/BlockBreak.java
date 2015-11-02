@@ -20,12 +20,7 @@ public class BlockBreak implements Listener{
 		//BlockBreak event
 		@EventHandler
 	    public void BlockBreakEvent(BlockBreakEvent e) {
-	        if (e.getPlayer().getInventory().firstEmpty() != -1){
-	            for(ItemStack item : e.getBlock().getDrops()){
-	                return;
-	            }
-	   
-	        } else {
+	        if (e.getPlayer().getInventory().firstEmpty() == -1){
 	            for(ItemStack item : e.getBlock().getDrops()){
 	                for (int i=0; i<35; i++) {
 	                    if (e.getPlayer().getInventory().getItem(i).getAmount()+item.getAmount()<=64) {
