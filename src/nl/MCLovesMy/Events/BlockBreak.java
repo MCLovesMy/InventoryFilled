@@ -22,7 +22,7 @@ public class BlockBreak implements Listener{
 	    public void BlockBreakEvent(BlockBreakEvent e) {
 	        if (e.getPlayer().getInventory().firstEmpty() != -1){
 	            for(ItemStack item : e.getBlock().getDrops()){
-	                e.getPlayer().getInventory().addItem(item);
+	                return;
 	            }
 	   
 	        } else {
