@@ -27,12 +27,7 @@ public class MobKill implements Listener{
             EntityDamageByEntityEvent entityDamageByEntityEvent = (EntityDamageByEntityEvent) entity.getLastDamageCause();
             if(entityDamageByEntityEvent.getDamager() instanceof Player){ //the killer was a player
                 Player killer = (Player)entityDamageByEntityEvent.getDamager();
-                if (killer.getInventory().firstEmpty() != -1){
-    	            for(ItemStack item : e.getDrops()){
-    	                return;
-    	            }
-    	   
-    	        } else {
+                if (killer.getInventory().firstEmpty() == -1){
     	            for(ItemStack item : e.getDrops()){
     	                for (int i=0; i<35; i++) {
     	                    if (killer.getInventory().getItem(i).getAmount()+item.getAmount()<=64) {
