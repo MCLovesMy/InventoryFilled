@@ -1,7 +1,0 @@
-# The main config file for InventoryFilled.
-# Here you can change all the settings. You can set more than 1 option to true. 
-# Then the players will get, ofcourse, multiple warnings!
-# If you mess up the config, just delete it and restart/reload your server,
-# InventoryFilled will recreate the Config!
-Chat-warning: true
-Title-warning: true
