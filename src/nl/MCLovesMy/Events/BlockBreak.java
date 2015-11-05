@@ -1,6 +1,9 @@
 package nl.MCLovesMy.Events;
  
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.Sound;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -20,23 +23,30 @@ public class BlockBreak implements Listener{
 		//BlockBreak event
 		@EventHandler
 	    public void BlockBreakEvent(BlockBreakEvent e) {
-	        if (e.getPlayer().getInventory().firstEmpty() == -1){
+			Player p = e.getPlayer();
+			Location loc = p.getLocation();
+	        if (p.getInventory().firstEmpty() == -1){
 	            for(ItemStack item : e.getBlock().getDrops()){
 	                for (int i=0; i<35; i++) {
-	                    if (e.getPlayer().getInventory().getItem(i).getAmount()+item.getAmount()<=64) {
-	                        if (e.getPlayer().getInventory().getItem(i).getType().equals(item.getType())) {
+	                    if (p.getInventory().getItem(i).getAmount()+item.getAmount()<=64) {
+	                        if (p.getInventory().getItem(i).getType().equals(item.getType())) {
 	                       
 	                            break;
 	                        }
 	                    }
 	                    if (i==34) {
-	                    	if(plugin.getConfig().getBoolean("Chat-warning")) 
-	                        e.getPlayer().sendMessage(ChatColor.RED + "You can't pickup " + item.getType() + ChatColor.RED + ", your inventory is full!");
-	                    	if (plugin.getConfig().getBoolean("Title-warning")) {
-	                    		TitleManager.sendTimings(e.getPlayer(), 5, 30, 15);
-	                    		TitleManager.sendTitle(e.getPlayer(), "{\"text\":\"\",\"extra\":[{\"text\":\"Inventory Full\",\"color\":\"red\"}]}");
-	                    		String raw1 = TellrawConverterLite.convertToJSON(ChatColor.BLUE + "You can't pickup " + item.getType());
-	                    		TitleManager.sendSubTitle(e.getPlayer(), raw1);
+	                    	if(plugin.config.getBoolean("Chat-Alert")) 
+	                        p.sendMessage(ChatColor.RED + plugin.messages.getString("Actions.BlockBreak.Chat-Alert-Message"));
+	                    	if (plugin.config.getBoolean("Title-Alert")) {
+	                    		TitleManager.sendTimings(p, 5, 30, 15);
+	                    		String raw2 = TellrawConverterLite.convertToJSON(ChatColor.RED + plugin.messages.getString("Actions.BlockBreak.Title-Alert-Message"));
+	                    		TitleManager.sendTitle(p, raw2);
+	                    		String raw1 = TellrawConverterLite.convertToJSON(ChatColor.BLUE + plugin.messages.getString("Actions.BlockBreak.SubTitle-Alert-Message"));
+	                    		TitleManager.sendSubTitle(p, raw1);
+	                    		}
+	                    	if (plugin.config.getBoolean("Sound-Alert")) {
+	                    		p.getWorld().playSound(loc,Sound.BLAZE_HIT,1, 0);  
+	                    		
 	                    	} else {
 	                    		return;
 	                    	}

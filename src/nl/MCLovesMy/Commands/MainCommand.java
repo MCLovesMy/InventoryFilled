@@ -9,22 +9,54 @@ import nl.MCLovesMy.Main;
 
 public class MainCommand implements CommandExecutor{
 	
-	@SuppressWarnings("unused")
-	private Main main;
-	public MainCommand(Main main) {
-		this.main = main;
+	private Main plugin;
+	public MainCommand(Main plugin) {
+		this.plugin = plugin;
 	}
 	
 	//Main Command
 	@Override
 	public boolean onCommand(CommandSender p, Command cmd, String label, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("inventoryFilled")) {
-			p.sendMessage(ChatColor.BLUE + "InventoryFilled has no commands! Just fill your inventory and see!");
+			if (args.length == 0) {
+				p.sendMessage(ChatColor.BLUE + "InventoryFilled commands:");
+				p.sendMessage(ChatColor.BLUE + " - /InventoryFilled reload");
+				p.sendMessage(ChatColor.BLUE + " - /if reload");
+				return true;
+			} else {
+			if (args[0].equalsIgnoreCase("reload")) {
+				plugin.loadYamls();
+				p.sendMessage(ChatColor.GREEN + "InventoryFilled files succesfully reloaded!");
+				return true;
+			} else {
+				p.sendMessage(ChatColor.RED + "That does not exist!");
+				p.sendMessage(ChatColor.BLUE + "InventoryFilled commands:");
+				p.sendMessage(ChatColor.BLUE + " - /InventoryFilled reload");
+				p.sendMessage(ChatColor.BLUE + " - /if reload");
+				return true;
+			}
+		}
 		}
 		else if (cmd.getName().equalsIgnoreCase("if")) {
-			p.sendMessage(ChatColor.BLUE + "InventoryFilled has no commands! Just fill your inventory and see!");
-		}
-		return true;
+			if (args.length == 0) {
+				p.sendMessage(ChatColor.BLUE + "InventoryFilled commands:");
+				p.sendMessage(ChatColor.BLUE + " - /InventoryFilled reload");
+				p.sendMessage(ChatColor.BLUE + " - /if reload");
+				return true;
+		} else {
+			if (args[0].equalsIgnoreCase("reload")) {
+				plugin.loadYamls();
+				p.sendMessage(ChatColor.GREEN + "InventoryFilled files succesfully reloaded!");
+				return true;
+			} else {
+				p.sendMessage(ChatColor.RED + "That does not exist!");
+				p.sendMessage(ChatColor.BLUE + "InventoryFilled commands:");
+				p.sendMessage(ChatColor.BLUE + " - /InventoryFilled reload");
+				p.sendMessage(ChatColor.BLUE + " - /if reload");
+				return true;
+			}
+			} 
+		} return true;
+		
 	}
-	
 }
