@@ -1,7 +1,8 @@
-package nl.MCLovesMy;
+package com.MCLovesMy;
 
 import java.io.File;
 import java.io.IOException;
+
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -9,13 +10,12 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import nl.MCLovesMy.Commands.MainCommand;
-import nl.MCLovesMy.Events.BlockBreak;
-import nl.MCLovesMy.Events.MobKill;
+import com.MCLovesMy.Commands.MainCommand;
+import com.MCLovesMy.Events.BlockBreak;
+import com.MCLovesMy.Events.MobKill;
 
-public class Main extends JavaPlugin implements Listener, CommandExecutor{
-	
-    public File configFile = new File(getDataFolder()+"/config.yml");
+public class InventoryFilled extends JavaPlugin implements CommandExecutor{
+	public File configFile = new File(getDataFolder()+"/config.yml");
     public FileConfiguration config = YamlConfiguration.loadConfiguration(configFile);
     public File messagesFile = new File(getDataFolder()+"/messages.yml");
     public FileConfiguration messages = YamlConfiguration.loadConfiguration(messagesFile);
@@ -90,7 +90,3 @@ public class Main extends JavaPlugin implements Listener, CommandExecutor{
 		}
 	}
 }
-	
-	
-	    
-

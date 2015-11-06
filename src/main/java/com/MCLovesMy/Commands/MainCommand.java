@@ -1,16 +1,16 @@
-package nl.MCLovesMy.Commands;
+package com.MCLovesMy.Commands;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-import nl.MCLovesMy.Main;
+import com.MCLovesMy.InventoryFilled;
 
 public class MainCommand implements CommandExecutor{
 	
-	private Main plugin;
-	public MainCommand(Main plugin) {
+	private InventoryFilled plugin;
+	public MainCommand(InventoryFilled plugin) {
 		this.plugin = plugin;
 	}
 	

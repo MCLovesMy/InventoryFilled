@@ -1,4 +1,4 @@
-package nl.MCLovesMy;
+package com.MCLovesMy;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -27,8 +27,7 @@ import org.bukkit.scheduler.BukkitTask;
 
 public class MetricsLite {
 	
-
-    /**
+	/**
      * The current revision number
      */
     private final static int REVISION = 7;

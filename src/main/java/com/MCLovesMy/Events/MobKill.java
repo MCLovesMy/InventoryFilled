@@ -1,4 +1,4 @@
-package nl.MCLovesMy.Events;
+package com.MCLovesMy.Events;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -11,14 +11,15 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 
+import com.MCLovesMy.InventoryFilled;
+
 import de.inventivegames.util.tellraw.TellrawConverterLite;
 import de.inventivegames.util.title.TitleManager;
-import nl.MCLovesMy.Main;
 
 public class MobKill implements Listener{
 	
-	private Main plugin;
-	public MobKill(Main plugin) {
+	private InventoryFilled plugin;
+	public MobKill(InventoryFilled plugin) {
 		this.plugin = plugin;
 	}
 	
@@ -119,6 +120,3 @@ public class MobKill implements Listener{
 		}
 	}
 }
-                
-           
-

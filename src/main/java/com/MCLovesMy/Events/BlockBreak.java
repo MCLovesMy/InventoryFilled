@@ -1,5 +1,5 @@
-package nl.MCLovesMy.Events;
- 
+package com.MCLovesMy.Events;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -9,14 +9,15 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 
+import com.MCLovesMy.InventoryFilled;
+
 import de.inventivegames.util.tellraw.TellrawConverterLite;
 import de.inventivegames.util.title.TitleManager;
-import nl.MCLovesMy.Main;
 
 public class BlockBreak implements Listener{
 	
-	private Main plugin;
-	public BlockBreak(Main plugin) {
+	private InventoryFilled plugin;
+	public BlockBreak(InventoryFilled plugin) {
 		this.plugin = plugin;
 	}
 	
@@ -55,5 +56,4 @@ public class BlockBreak implements Listener{
 	            }
 	        }
 	    }
-
 }
