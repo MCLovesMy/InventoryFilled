@@ -1,5 +1,7 @@
 package com.MCLovesMy.Events;
 
+import java.util.UUID;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -25,7 +27,9 @@ public class BlockBreak implements Listener{
 		@EventHandler
 	    public void BlockBreakEvent(BlockBreakEvent e) {
 			Player p = e.getPlayer();
+			UUID uuid = p.getUniqueId();
 			Location loc = p.getLocation();
+			if (plugin.playerdata.getBoolean("Players." + uuid + ".Alerts") == true) {
 	        if (p.getInventory().firstEmpty() == -1){
 	            for(ItemStack item : e.getBlock().getDrops()){
 	                for (int i=0; i<35; i++) {
@@ -56,4 +60,5 @@ public class BlockBreak implements Listener{
 	            }
 	        }
 	    }
+	}
 }

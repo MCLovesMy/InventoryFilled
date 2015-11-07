@@ -17,31 +17,32 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.MCLovesMy.Commands.MainCommand;
 import com.MCLovesMy.Events.BlockBreak;
 import com.MCLovesMy.Events.MobKill;
+import com.MCLovesMy.Events.PlayerData.Join;
 
 	public class InventoryFilled extends JavaPlugin implements CommandExecutor{
 	public File configFile = new File(getDataFolder()+"/config.yml");
     public FileConfiguration config = YamlConfiguration.loadConfiguration(configFile);
     public File messagesFile = new File(getDataFolder()+"/messages.yml");
     public FileConfiguration messages = YamlConfiguration.loadConfiguration(messagesFile);
+    public File playerdataFile = new File(getDataFolder()+"/playerdata.yml");
+    public FileConfiguration playerdata = YamlConfiguration.loadConfiguration(playerdataFile);
     
   
-    Server server = Bukkit.getServer();
-    ConsoleCommandSender console = server.getConsoleSender();
+    public Server server = Bukkit.getServer();
+    public ConsoleCommandSender console = server.getConsoleSender();
     
     PluginDescriptionFile pdf = this.getDescription();
 	
 	public void onEnable() {
 		getCommand("inventoryfilled").setExecutor(new MainCommand(this));
 		getCommand("if").setExecutor(new MainCommand(this));
-		registerEvents(this, new BlockBreak(this), new MobKill(this));
+		registerEvents(this, new BlockBreak(this), new MobKill(this), new Join(this));
 		
 		loadConfiguration();
-		if (!configFile.exists()) {
 		saveConfigFile();
-		}
-		loadConfiguration();
-		if (!messagesFile.exists()) {
 		saveMessagesFile();
+		if (!playerdataFile.exists()) {
+		savePlayerDataFile();
 		}
 		loadYamls();
 	    
@@ -63,18 +64,36 @@ import com.MCLovesMy.Events.MobKill;
 	}
 	
 	public void loadConfiguration() {
-		config.addDefault("Chat-Alert", true);
-		config.addDefault("Title-Alert", true);
-		config.addDefault("Sound-Alert", true);
-		config.options().copyDefaults(true);
-		//Custom messages
+		//config.yml
+		config.options().header("# InventoryFilled Config!\n"
+				+ "Explanation about all the options!\n"
+				+ "DO NOT EDIT LINES WITH A # IN FRONT! THIS WILL DON'T CHANGE SETTINGS! \n"
+				+ "\n"
+				+ "Turn the Chat-Alert on or off (true/false):\n"
+				+ "Chat-Alert: true\n\n"
+				+ "Turn the Title-Alert on or off (true/false):\n"
+				+ "Title-Alert: true\n\n"
+				+ "Turn the Sound-Alert on or off(true/false\n"
+				+ "Sound-Alert: true\n\n"
+				+ "Players can turn alerts on or off with /if on and /if off\n"
+				+ "This Default-Alert-State option changes if players will get alerts by default, so when they did not turn it on/off yet.\n"
+				+ "If true, players will get alerts by default. (So they have to do /if off if they don't want alerts)\n"
+				+ "If false, players won't get alerts by default. (So they have to do /if on if the want alerts)\n"
+				+ "Default-Alert-State: true");
+		config.set("Chat-Alert", true);
+		config.set("Title-Alert", true);
+		config.set("Sound-Alert", true);
+		config.set("Default-Alert-State", true);
+		config.options().copyDefaults(true).copyHeader(true);
+		//messages.yml
 		messages.addDefault("Actions.BlockBreak.Chat-Alert-Message", "You can't pick this block up, your inventory is full!");
 		messages.addDefault("Actions.BlockBreak.Title-Alert-Message", "Inventory Full");
 		messages.addDefault("Actions.BlockBreak.SubTitle-Alert-Message", "You can't pick this block up");
 		messages.addDefault("Actions.MobKill.Chat-Alert-Message", "You can't pick the mob drops up, your inventory is full!");
 		messages.addDefault("Actions.MobKill.Title-Alert-Message", "Inventory Full");
 		messages.addDefault("Actions.MobKill.SubTitle-Alert-Message", "You can't pick the mob drops up!");
-		messages.options().copyDefaults(true);
+		messages.options().copyDefaults(true).copyHeader(true);
+		//PlayerData
 	}
 	
 	public void saveConfigFile() {
@@ -93,10 +112,19 @@ import com.MCLovesMy.Events.MobKill;
 	    }
 	}
 	
+	public void savePlayerDataFile() {
+	    try {
+	        playerdata.save(playerdataFile);
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	}
+	
 	public void loadYamls() {
 	    try {
 	        config.load(configFile);
 	        messages.load(messagesFile);
+	        playerdata.load(playerdataFile);;
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }

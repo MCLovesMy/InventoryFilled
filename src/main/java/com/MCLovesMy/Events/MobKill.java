@@ -1,5 +1,7 @@
 package com.MCLovesMy.Events;
 
+import java.util.UUID;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -27,9 +29,11 @@ public class MobKill implements Listener{
 	public void onEntityDeath(EntityDeathEvent e){
         Entity entity = e.getEntity();
 		if(entity.getLastDamageCause() instanceof EntityDamageByEntityEvent){ //the dead thing was killed by an entity
-            EntityDamageByEntityEvent entityDamageByEntityEvent = (EntityDamageByEntityEvent) entity.getLastDamageCause();
+			EntityDamageByEntityEvent entityDamageByEntityEvent = (EntityDamageByEntityEvent) entity.getLastDamageCause();
             if(entityDamageByEntityEvent.getDamager() instanceof Player){ //the killer was a player
-                Player killer = (Player)entityDamageByEntityEvent.getDamager();
+            	Player killer = (Player)entityDamageByEntityEvent.getDamager();
+                UUID uuid = killer.getUniqueId();
+        		if (plugin.playerdata.getBoolean("Players." + uuid + ".Alerts") == true) {
                 if (killer.getInventory().firstEmpty() == -1){
     	            for(ItemStack item : e.getDrops()){
     	                for (int i=0; i<35; i++) {
@@ -45,6 +49,7 @@ public class MobKill implements Listener{
     	                        return;
     		                   	} else {
     		                   		return;
+    		                   	}
     		                    }
     	                    }
     	                }
@@ -58,9 +63,11 @@ public class MobKill implements Listener{
 	public void onEntityDeath1(EntityDeathEvent e){
         Entity entity = e.getEntity();
 		if(entity.getLastDamageCause() instanceof EntityDamageByEntityEvent){ //the dead thing was killed by an entity
-            EntityDamageByEntityEvent entityDamageByEntityEvent = (EntityDamageByEntityEvent) entity.getLastDamageCause();
+			EntityDamageByEntityEvent entityDamageByEntityEvent = (EntityDamageByEntityEvent) entity.getLastDamageCause();
             if(entityDamageByEntityEvent.getDamager() instanceof Player){ //the killer was a player
-                Player killer = (Player)entityDamageByEntityEvent.getDamager();
+            	Player killer = (Player)entityDamageByEntityEvent.getDamager();
+                UUID uuid = killer.getUniqueId();
+        		if (plugin.playerdata.getBoolean("Players." + uuid + ".Alerts") == true) {
                 if (killer.getInventory().firstEmpty() == -1){
     	            for(ItemStack item : e.getDrops()){
     	                for (int i=0; i<35; i++) {
@@ -79,6 +86,7 @@ public class MobKill implements Listener{
     	                    		TitleManager.sendSubTitle(killer, raw1);
     		                   	} else {
     		                   		return;
+    		                   	}
     		                    }
     	                    }
     	                }
@@ -92,9 +100,11 @@ public class MobKill implements Listener{
 	public void onEntityDeath2(EntityDeathEvent e){
         Entity entity = e.getEntity();
 		if(entity.getLastDamageCause() instanceof EntityDamageByEntityEvent){ //the dead thing was killed by an entity
-            EntityDamageByEntityEvent entityDamageByEntityEvent = (EntityDamageByEntityEvent) entity.getLastDamageCause();
+			EntityDamageByEntityEvent entityDamageByEntityEvent = (EntityDamageByEntityEvent) entity.getLastDamageCause();
             if(entityDamageByEntityEvent.getDamager() instanceof Player){ //the killer was a player
-                Player killer = (Player)entityDamageByEntityEvent.getDamager();
+            	Player killer = (Player)entityDamageByEntityEvent.getDamager();
+                UUID uuid = killer.getUniqueId();
+        		if (plugin.playerdata.getBoolean("Players." + uuid + ".Alerts") == true) {
                 if (killer.getInventory().firstEmpty() == -1){
     	            for(ItemStack item : e.getDrops()){
     	                for (int i=0; i<35; i++) {
@@ -111,6 +121,7 @@ public class MobKill implements Listener{
     	                    		return;
     	                    	} else {
     	                    		return;
+    	                    	}
     	                    	}
     	                    }
     	                }
