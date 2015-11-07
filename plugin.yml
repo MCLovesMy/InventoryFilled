@@ -10,3 +10,7 @@ commands:
    if:
      description: The main InventoryFilled command.
      usage: /if
+permissions:
+  InventoryFilled.reload:
+    description: User-friendly description
+    default: op
