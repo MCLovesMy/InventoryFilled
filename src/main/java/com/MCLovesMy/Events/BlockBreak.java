@@ -50,7 +50,8 @@ public class BlockBreak implements Listener{
 	                    		TitleManager.sendSubTitle(p, raw1);
 	                    		}
 	                    	if (plugin.config.getBoolean("Sound-Alert")) {
-	                    		p.getWorld().playSound(loc,Sound.BLAZE_HIT,1, 0);  
+	                    		String sound = plugin.config.getString("Sound-Alert-Sound");
+	                    		p.getWorld().playSound(loc,Sound.valueOf(sound),1, 0);  
 	                    		
 	                    	} else {
 	                    		return;

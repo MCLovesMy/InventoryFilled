@@ -67,7 +67,7 @@ import com.MCLovesMy.Events.PlayerData.Join;
 		//config.yml
 		config.options().header("# InventoryFilled Config!\n"
 				+ "Explanation about all the options!\n"
-				+ "DO NOT EDIT LINES WITH A # IN FRONT! THIS WILL DON'T CHANGE SETTINGS! \n"
+				+ "DO NOT EDIT LINES WITH A # IN FRONT! THIS WILL NOT CHANGE SETTINGS! \n"
 				+ "\n"
 				+ "Turn the Chat-Alert on or off (true/false):\n"
 				+ "Chat-Alert: true\n\n"
@@ -79,11 +79,26 @@ import com.MCLovesMy.Events.PlayerData.Join;
 				+ "This Default-Alert-State option changes if players will get alerts by default, so when they did not turn it on/off yet.\n"
 				+ "If true, players will get alerts by default. (So they have to do /if off if they don't want alerts)\n"
 				+ "If false, players won't get alerts by default. (So they have to do /if on if the want alerts)\n"
-				+ "Default-Alert-State: true");
-		config.set("Chat-Alert", true);
-		config.set("Title-Alert", true);
-		config.set("Sound-Alert", true);
-		config.set("Default-Alert-State", true);
+				+ "Default-Alert-State: true"
+				+ "\n\n"
+				+ "Change which sound will be played when a full inventory.\n"
+				+ "For sounds see: http://jd.bukkit.org/org/bukkit/Sound.html\n"
+				+ "Sound-Alert-Sound: BLAZE_HIT");
+		if (!config.contains("Chat-Alert")) {
+			config.set("Chat-Alert", true);
+		}
+		if (!config.contains("Title-Alert")) {
+			config.set("Title-Alert", true);
+		}
+		if (!config.contains("Sound-Alert")) {
+			config.set("Sound-Alert", true);
+		}
+		if (!config.contains("Default-Alert-State")) {
+			config.set("Default-Alert-State", true);
+		}
+		if (!config.contains("Sound-Alert-Sound")) {
+			config.set("Sound-Alert-Sound", "BLAZE_HIT");
+		}
 		config.options().copyDefaults(true).copyHeader(true);
 		//messages.yml
 		messages.addDefault("Actions.BlockBreak.Chat-Alert-Message", "You can't pick this block up, your inventory is full!");
@@ -138,7 +153,7 @@ import com.MCLovesMy.Events.PlayerData.Join;
 	
 	//Updater
 	public void checkUpdate() {
-		console.sendMessage(ChatColor.DARK_AQUA + "Checking for InventoryFull updates...");
+		console.sendMessage(ChatColor.DARK_AQUA + "Checking for InventoryFilled updates...");
         final Updater updater = new Updater(this, 14072, false);
         final Updater.UpdateResult result = updater.getResult();
         switch (result) {
@@ -147,15 +162,15 @@ import com.MCLovesMy.Events.PlayerData.Join;
                 break;
             }
             case NO_UPDATE: {
-            	console.sendMessage(ChatColor.DARK_AQUA + "The InventoryFull updater works fine!");
-            	console.sendMessage(ChatColor.GREEN + "You have the latest InventoryFull version!");
+            	console.sendMessage(ChatColor.DARK_AQUA + "The InventoryFilled updater works fine!");
+            	console.sendMessage(ChatColor.GREEN + "You have the latest InventoryFilled version!");
             	console.sendMessage(ChatColor.DARK_AQUA + "Current version: " + pdf.getVersion());
                 break;
             }
             case UPDATE_AVAILABLE: {
                 String version = updater.getVersion();
-            	console.sendMessage(ChatColor.DARK_AQUA + "The InventoryFull updater works fine!");
-                console.sendMessage(ChatColor.GREEN + "An InventoryFull update is found!");
+            	console.sendMessage(ChatColor.DARK_AQUA + "The InventoryFilled updater works fine!");
+                console.sendMessage(ChatColor.GREEN + "An InventoryFilled update is found!");
                 console.sendMessage(ChatColor.DARK_AQUA + "Your version: " + pdf.getVersion() + ". Newest Version: " + version);
                 @SuppressWarnings("unused")
 				Boolean updateAvailable = true;

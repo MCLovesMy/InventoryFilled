@@ -116,8 +116,9 @@ public class MobKill implements Listener{
     	                    }
     	                    if (i==34) {
     	                    	if (plugin.config.getBoolean("Sound-Alert")) {
+    	                    		String sound = plugin.config.getString("Sound-Alert-Sound");
     	                    		Location loc = killer.getLocation();
-    	                    		killer.getWorld().playSound(loc,Sound.BLAZE_HIT,1, 0);  
+    	                    		killer.getWorld().playSound(loc,Sound.valueOf(sound),1, 0);  
     	                    		return;
     	                    	} else {
     	                    		return;
