@@ -65,7 +65,8 @@ import com.MCLovesMy.Events.PlayerData.Join;
 	
 	public void loadConfiguration() {
 		//config.yml
-		config.options().header("# InventoryFilled Config!\n"
+		config.options().header(
+				"InventoryFilled Config!\n"
 				+ "Explanation about all the options!\n"
 				+ "DO NOT EDIT LINES WITH A # IN FRONT! THIS WILL NOT CHANGE SETTINGS! \n"
 				+ "\n"
@@ -83,7 +84,8 @@ import com.MCLovesMy.Events.PlayerData.Join;
 				+ "\n\n"
 				+ "Change which sound will be played when a full inventory.\n"
 				+ "For sounds see: http://jd.bukkit.org/org/bukkit/Sound.html\n"
-				+ "Sound-Alert-Sound: BLAZE_HIT");
+				+ "Sound-Alert-Sound: BLAZE_HIT"
+				+ "\n\n");
 		if (!config.contains("Chat-Alert")) {
 			config.set("Chat-Alert", true);
 		}

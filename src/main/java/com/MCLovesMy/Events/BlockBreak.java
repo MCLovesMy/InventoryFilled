@@ -3,6 +3,7 @@ package com.MCLovesMy.Events;
 import java.util.UUID;
 
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -30,6 +31,7 @@ public class BlockBreak implements Listener{
 			UUID uuid = p.getUniqueId();
 			Location loc = p.getLocation();
 			if (plugin.playerdata.getBoolean("Players." + uuid + ".Alerts") == true) {
+			if (!p.getGameMode().equals(GameMode.CREATIVE)) {
 	        if (p.getInventory().firstEmpty() == -1){
 	            for(ItemStack item : e.getBlock().getDrops()){
 	                for (int i=0; i<35; i++) {
@@ -55,6 +57,7 @@ public class BlockBreak implements Listener{
 	                    		
 	                    	} else {
 	                    		return;
+	                    	}
 	                    	}
 	                    }
 	                }

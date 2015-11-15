@@ -3,6 +3,7 @@ package com.MCLovesMy.Events;
 import java.util.UUID;
 
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
@@ -34,6 +35,7 @@ public class MobKill implements Listener{
             	Player killer = (Player)entityDamageByEntityEvent.getDamager();
                 UUID uuid = killer.getUniqueId();
         		if (plugin.playerdata.getBoolean("Players." + uuid + ".Alerts") == true) {
+        		if (!killer.getGameMode().equals(GameMode.CREATIVE)) {
                 if (killer.getInventory().firstEmpty() == -1){
     	            for(ItemStack item : e.getDrops()){
     	                for (int i=0; i<35; i++) {
@@ -50,6 +52,7 @@ public class MobKill implements Listener{
     		                   	} else {
     		                   		return;
     		                   	}
+    	                    }
     		                    }
     	                    }
     	                }
@@ -68,6 +71,7 @@ public class MobKill implements Listener{
             	Player killer = (Player)entityDamageByEntityEvent.getDamager();
                 UUID uuid = killer.getUniqueId();
         		if (plugin.playerdata.getBoolean("Players." + uuid + ".Alerts") == true) {
+            	if (!killer.getGameMode().equals(GameMode.CREATIVE)) {
                 if (killer.getInventory().firstEmpty() == -1){
     	            for(ItemStack item : e.getDrops()){
     	                for (int i=0; i<35; i++) {
@@ -87,6 +91,7 @@ public class MobKill implements Listener{
     		                   	} else {
     		                   		return;
     		                   	}
+    		                   	}
     		                    }
     	                    }
     	                }
@@ -105,6 +110,7 @@ public class MobKill implements Listener{
             	Player killer = (Player)entityDamageByEntityEvent.getDamager();
                 UUID uuid = killer.getUniqueId();
         		if (plugin.playerdata.getBoolean("Players." + uuid + ".Alerts") == true) {
+            	if (!killer.getGameMode().equals(GameMode.CREATIVE)) {
                 if (killer.getInventory().firstEmpty() == -1){
     	            for(ItemStack item : e.getDrops()){
     	                for (int i=0; i<35; i++) {
@@ -122,6 +128,7 @@ public class MobKill implements Listener{
     	                    		return;
     	                    	} else {
     	                    		return;
+    	                    	}
     	                    	}
     	                    	}
     	                    }
