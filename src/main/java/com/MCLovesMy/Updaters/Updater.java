@@ -1,4 +1,4 @@
-package com.MCLovesMy;
+package com.MCLovesMy.Updaters;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,7 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Updater {
 	
-	 private JavaPlugin plugin;
+		private JavaPlugin plugin;
 	    private final String API_KEY = "98BE0FE67F88AB82B4C197FAF1DC3B69206EFDCC4D3B80FC83A00037510B99B4";
 	    private final String REQUEST_METHOD = "POST";
 	    private String RESOURCE_ID = "";
@@ -36,6 +36,7 @@ public class Updater {
 	        UPDATE_AVAILABLE
 	    }
 	   
+	    
 	    public Updater(JavaPlugin plugin, Integer resourceId, boolean disabled) {
 	        RESOURCE_ID = resourceId + "";
 	        this.plugin = plugin;

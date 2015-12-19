@@ -6,9 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-
 import com.MCLovesMy.InventoryFilled;
-
 import net.md_5.bungee.api.ChatColor;
 
 public class Join implements Listener{
@@ -29,8 +27,6 @@ public class Join implements Listener{
 			plugin.savePlayerDataFile();
 			plugin.console.sendMessage(ChatColor.GREEN + "InventoryFilled: " + ChatColor.DARK_AQUA + "Player " + p + " has been added to playerdata.yml");
 			return;
-		} else {
-			return;
-		}
+		} 
 	}
 }

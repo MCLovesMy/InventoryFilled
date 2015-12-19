@@ -34,6 +34,7 @@ public class MobKill implements Listener{
             if(entityDamageByEntityEvent.getDamager() instanceof Player){ //the killer was a player
             	Player killer = (Player)entityDamageByEntityEvent.getDamager();
                 UUID uuid = killer.getUniqueId();
+                if (killer.hasPermission("InventoryFilled.alert")) {
         		if (plugin.playerdata.getBoolean("Players." + uuid + ".Alerts") == true) {
         		if (!killer.getGameMode().equals(GameMode.CREATIVE)) {
                 if (killer.getInventory().firstEmpty() == -1){
@@ -53,6 +54,7 @@ public class MobKill implements Listener{
     		                   		return;
     		                   	}
     	                    }
+    	                }
     		                    }
     	                    }
     	                }
@@ -70,6 +72,7 @@ public class MobKill implements Listener{
             if(entityDamageByEntityEvent.getDamager() instanceof Player){ //the killer was a player
             	Player killer = (Player)entityDamageByEntityEvent.getDamager();
                 UUID uuid = killer.getUniqueId();
+                if (killer.hasPermission("InventoryFilled.alert")) {
         		if (plugin.playerdata.getBoolean("Players." + uuid + ".Alerts") == true) {
             	if (!killer.getGameMode().equals(GameMode.CREATIVE)) {
                 if (killer.getInventory().firstEmpty() == -1){
@@ -93,6 +96,7 @@ public class MobKill implements Listener{
     		                   	}
     		                   	}
     		                    }
+    	            }
     	                    }
     	                }
     	            }
@@ -109,6 +113,7 @@ public class MobKill implements Listener{
             if(entityDamageByEntityEvent.getDamager() instanceof Player){ //the killer was a player
             	Player killer = (Player)entityDamageByEntityEvent.getDamager();
                 UUID uuid = killer.getUniqueId();
+                if (killer.hasPermission("InventoryFilled.alert")) {
         		if (plugin.playerdata.getBoolean("Players." + uuid + ".Alerts") == true) {
             	if (!killer.getGameMode().equals(GameMode.CREATIVE)) {
                 if (killer.getInventory().firstEmpty() == -1){
@@ -131,6 +136,7 @@ public class MobKill implements Listener{
     	                    	}
     	                    	}
     	                    	}
+    	            }
     	                    }
     	                }
     	            }
