@@ -2,13 +2,19 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.MCLovesMy</groupId>
   <artifactId>InventoryFilled</artifactId>
-  <version>1.3.1</version>
+  <version>1.3.4</version>
   <name>InventoryFilled</name>
   
   <repositories>
   	  <repository>
           <id>spigot-repo</id>
           <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+    </repository>
+    
+    <!-- Particle Lib https://bukkit.org/threads/1-8-particleeffect-v1-7.154406/ -->
+    <repository>
+          <id>sinndev-repo</id>
+          <url>http://repo.sinndev.com/content/groups/public/</url>
     </repository>
   </repositories>
   
@@ -19,6 +25,11 @@
             <version>1.8.8-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
       </dependency>
-      
+      <!-- Particle Lib https://bukkit.org/threads/1-8-particleeffect-v1-7.154406/ -->
+      <dependency>
+            <groupId>com.darkblade12</groupId>
+            <artifactId>particleeffect</artifactId>
+            <version>1.7</version>
+      </dependency>
   </dependencies>
 </project>

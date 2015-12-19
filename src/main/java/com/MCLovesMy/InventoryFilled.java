@@ -18,6 +18,7 @@ import com.MCLovesMy.Commands.MainCommand;
 import com.MCLovesMy.Events.BlockBreak;
 import com.MCLovesMy.Events.MobKill;
 import com.MCLovesMy.Events.PlayerData.Join;
+import com.MCLovesMy.Updaters.Updater;
 
 	public class InventoryFilled extends JavaPlugin implements CommandExecutor{
 	public File configFile = new File(getDataFolder()+"/config.yml");
@@ -27,11 +28,11 @@ import com.MCLovesMy.Events.PlayerData.Join;
     public File playerdataFile = new File(getDataFolder()+"/playerdata.yml");
     public FileConfiguration playerdata = YamlConfiguration.loadConfiguration(playerdataFile);
     
-  
     public Server server = Bukkit.getServer();
     public ConsoleCommandSender console = server.getConsoleSender();
     
     PluginDescriptionFile pdf = this.getDescription();
+    
 	
 	public void onEnable() {
 		getCommand("inventoryfilled").setExecutor(new MainCommand(this));
@@ -49,7 +50,7 @@ import com.MCLovesMy.Events.PlayerData.Join;
         getServer().getScheduler().runTaskLaterAsynchronously(this, new Runnable() {
             public void run() {
             	console.sendMessage(ChatColor.BLUE + "============================================");
-                checkUpdate();
+                checkUpdateConsole();
         	    console.sendMessage(ChatColor.BLUE + "============================================");
             }
         }, 20L);
@@ -153,35 +154,34 @@ import com.MCLovesMy.Events.PlayerData.Join;
 		}
 	}
 	
-	//Updater
-	public void checkUpdate() {
-		console.sendMessage(ChatColor.DARK_AQUA + "Checking for InventoryFilled updates...");
-        final Updater updater = new Updater(this, 14072, false);
-        final Updater.UpdateResult result = updater.getResult();
-        switch (result) {
-            case FAIL_SPIGOT: {
-            	console.sendMessage(ChatColor.RED + "ERROR: The updater of InventoryFilled could not contact Spgitomc.org");
-                break;
+    	public void checkUpdateConsole() {
+    		console.sendMessage(ChatColor.DARK_AQUA + "Checking for InventoryFilled updates...");
+            final Updater updater = new Updater(this, 14072, false);
+            final Updater.UpdateResult result = updater.getResult();
+            switch (result) {
+                case FAIL_SPIGOT: {
+                	console.sendMessage(ChatColor.RED + "ERROR: The updater of InventoryFilled could not contact Spgitomc.org");
+                    break;
+                }
+                case NO_UPDATE: {
+                	console.sendMessage(ChatColor.DARK_AQUA + "The InventoryFilled updater works fine!");
+                	console.sendMessage(ChatColor.GREEN + "You have the latest InventoryFilled version!");
+                	console.sendMessage(ChatColor.DARK_AQUA + "Current version: " + pdf.getVersion());
+                    break;
+                }
+                case UPDATE_AVAILABLE: {
+                    String version = updater.getVersion();
+                	console.sendMessage(ChatColor.DARK_AQUA + "The InventoryFilled updater works fine!");
+                    console.sendMessage(ChatColor.GREEN + "An InventoryFilled update is found!");
+                    console.sendMessage(ChatColor.DARK_AQUA + "Your version: " + pdf.getVersion() + ". Newest Version: " + version);
+                    @SuppressWarnings("unused")
+    				Boolean updateAvailable = true;
+                    break;
+                }
+                default: {
+                    console.sendMessage(result.toString());
+                    break;
+                }
             }
-            case NO_UPDATE: {
-            	console.sendMessage(ChatColor.DARK_AQUA + "The InventoryFilled updater works fine!");
-            	console.sendMessage(ChatColor.GREEN + "You have the latest InventoryFilled version!");
-            	console.sendMessage(ChatColor.DARK_AQUA + "Current version: " + pdf.getVersion());
-                break;
-            }
-            case UPDATE_AVAILABLE: {
-                String version = updater.getVersion();
-            	console.sendMessage(ChatColor.DARK_AQUA + "The InventoryFilled updater works fine!");
-                console.sendMessage(ChatColor.GREEN + "An InventoryFilled update is found!");
-                console.sendMessage(ChatColor.DARK_AQUA + "Your version: " + pdf.getVersion() + ". Newest Version: " + version);
-                @SuppressWarnings("unused")
-				Boolean updateAvailable = true;
-                break;
-            }
-            default: {
-                console.sendMessage(result.toString());
-                break;
-            }
-        }
     }
 }

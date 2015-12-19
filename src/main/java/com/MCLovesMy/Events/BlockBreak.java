@@ -11,7 +11,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
-
 import com.MCLovesMy.InventoryFilled;
 
 import de.inventivegames.util.tellraw.TellrawConverterLite;
@@ -29,7 +28,8 @@ public class BlockBreak implements Listener{
 	    public void BlockBreakEvent(BlockBreakEvent e) {
 			Player p = e.getPlayer();
 			UUID uuid = p.getUniqueId();
-			Location loc = p.getLocation();
+			Location playerLoc = p.getLocation();
+			if (p.hasPermission("InventoryFilled.alert")) {
 			if (plugin.playerdata.getBoolean("Players." + uuid + ".Alerts") == true) {
 			if (!p.getGameMode().equals(GameMode.CREATIVE)) {
 	        if (p.getInventory().firstEmpty() == -1){
@@ -53,7 +53,7 @@ public class BlockBreak implements Listener{
 	                    		}
 	                    	if (plugin.config.getBoolean("Sound-Alert")) {
 	                    		String sound = plugin.config.getString("Sound-Alert-Sound");
-	                    		p.getWorld().playSound(loc,Sound.valueOf(sound),1, 0);  
+	                    		p.getWorld().playSound(playerLoc,Sound.valueOf(sound),1, 0);  
 	                    		
 	                    	} else {
 	                    		return;
@@ -63,6 +63,7 @@ public class BlockBreak implements Listener{
 	                }
 	            }
 	        }
+			}
 	    }
 	}
 }
