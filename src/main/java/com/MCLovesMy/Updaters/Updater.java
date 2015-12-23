@@ -19,7 +19,7 @@ public class Updater {
 	    private final String HOST = "http://www.spigotmc.org";
 	    private final String QUERY = "/api/general.php";
 	    private String WRITE_STRING;
-	   
+	    
 	    private String version;
 	    private String oldVersion;
 	   

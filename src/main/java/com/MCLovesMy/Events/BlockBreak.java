@@ -1,5 +1,6 @@
 package com.MCLovesMy.Events;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 import org.bukkit.ChatColor;
@@ -11,6 +12,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
+
 import com.MCLovesMy.InventoryFilled;
 
 import de.inventivegames.util.tellraw.TellrawConverterLite;
@@ -23,13 +25,92 @@ public class BlockBreak implements Listener{
 		this.plugin = plugin;
 	}
 	
+	private static ArrayList<String> messageAlert1 = new ArrayList<String>();
+	private static ArrayList<String> messageAlert2 = new ArrayList<String>();
+	private static ArrayList<String> messageAlert3 = new ArrayList<String>();
+	private static ArrayList<String> messageAlert4 = new ArrayList<String>();
+		
 		//BlockBreak event
 		@EventHandler
 	    public void BlockBreakEvent(BlockBreakEvent e) {
 			Player p = e.getPlayer();
 			UUID uuid = p.getUniqueId();
 			Location playerLoc = p.getLocation();
-			if (p.hasPermission("InventoryFilled.alert")) {
+			ItemStack[] contents = p.getInventory().getContents();
+			
+			int count = 0;
+			for (int i = 0; i < contents.length; i++) {
+			    if (contents[i] == null)
+			        count++;
+			}
+			
+			double invPercent = (100. / 36);
+			int invSlotsFull = 36 - count;
+			int invSlotsPercentFull = (int) (invPercent * invSlotsFull);
+			
+			String invSlotsFullPercent = invSlotsPercentFull + "%";
+			
+			//alert1
+	        if (invSlotsFull == (plugin.config.getInt("Inventory-Part-Alert.Alert1.Slots-Filled"))) {
+	        	if (!messageAlert1.contains(p.getName())) {
+                 p.sendMessage(ChatColor.BLUE + "Your inventory is filled for " + invSlotsFullPercent + "!");
+                 messageAlert1.add(p.getName());
+	        	}
+	        }
+	        if (invSlotsFull >= (plugin.config.getInt("Inventory-Part-Alert.Alert1.Slots-Filled")) + 1){
+	        	messageAlert1.remove(p.getName());
+	        }
+	        
+	        if (invSlotsFull <= (plugin.config.getInt("Inventory-Part-Alert.Alert1.Slots-Filled")) - 1){
+	        	messageAlert1.remove(p.getName());
+	        }
+	        
+	        //alert2
+	        if (invSlotsFull == (plugin.config.getInt("Inventory-Part-Alert.Alert2.Slots-Filled"))) {
+	        	if (!messageAlert2.contains(p.getName())) {
+                 p.sendMessage(ChatColor.BLUE + "Your inventory is filled for " + invSlotsFullPercent + "!");
+                 messageAlert2.add(p.getName());
+	        	}
+	        }
+	        if (invSlotsFull >= (plugin.config.getInt("Inventory-Part-Alert.Alert2.Slots-Filled")) + 1){
+	        	messageAlert2.remove(p.getName());
+	        }
+	        
+	        if (invSlotsFull <= (plugin.config.getInt("Inventory-Part-Alert.Alert1.Slots-Filled")) - 1){
+	        	messageAlert2.remove(p.getName());
+	        }
+	        
+	        //alert3
+	        if (invSlotsFull == (plugin.config.getInt("Inventory-Part-Alert.Alert3.Slots-Filled"))) {
+	        	if (!messageAlert3.contains(p.getName())) {
+                 p.sendMessage(ChatColor.BLUE + "Your inventory is filled for " + invSlotsFullPercent + "!");
+                 messageAlert3.add(p.getName());
+	        	}
+	        }
+	        if (invSlotsFull >= (plugin.config.getInt("Inventory-Part-Alert.Alert3.Slots-Filled")) + 1){
+	        	messageAlert3.remove(p.getName());
+	        }
+	        
+	        if (invSlotsFull <= (plugin.config.getInt("Inventory-Part-Alert.Alert3.Slots-Filled")) - 1){
+	        	messageAlert3.remove(p.getName());
+	        }
+	        
+	        //alert4
+	        if (invSlotsFull == (plugin.config.getInt("Inventory-Part-Alert.Alert4.Slots-Filled"))) {
+	        	if (!messageAlert4.contains(p.getName())) {
+                 p.sendMessage(ChatColor.BLUE + "Your inventory is filled for " + invSlotsFullPercent + "!");
+                 messageAlert4.add(p.getName());
+	        	}
+	        }
+	        if (invSlotsFull >= (plugin.config.getInt("Inventory-Part-Alert.Alert4.Slots-Filled")) + 1){
+	        	messageAlert4.remove(p.getName());
+	        }
+	        
+	        if (invSlotsFull <= (plugin.config.getInt("Inventory-Part-Alert.Alert4.Slots-Filled")) - 1){
+	        	messageAlert4.remove(p.getName());
+	        }
+	        
+	        if (p.hasPermission("InventoryFilled.alert")) {
 			if (plugin.playerdata.getBoolean("Players." + uuid + ".Alerts") == true) {
 			if (!p.getGameMode().equals(GameMode.CREATIVE)) {
 	        if (p.getInventory().firstEmpty() == -1){
@@ -42,17 +123,17 @@ public class BlockBreak implements Listener{
 	                        }
 	                    }
 	                    if (i==34) {
-	                    	if(plugin.config.getBoolean("Chat-Alert")) 
+	                    	if(plugin.config.getBoolean("Chat-Alert.Enabled")) 
 	                        p.sendMessage(ChatColor.RED + plugin.messages.getString("Actions.BlockBreak.Chat-Alert-Message"));
-	                    	if (plugin.config.getBoolean("Title-Alert")) {
+	                    	if (plugin.config.getBoolean("Title-Alert.Enabled")) {
 	                    		TitleManager.sendTimings(p, 5, 30, 15);
 	                    		String raw2 = TellrawConverterLite.convertToJSON(ChatColor.RED + plugin.messages.getString("Actions.BlockBreak.Title-Alert-Message"));
 	                    		TitleManager.sendTitle(p, raw2);
 	                    		String raw1 = TellrawConverterLite.convertToJSON(ChatColor.BLUE + plugin.messages.getString("Actions.BlockBreak.SubTitle-Alert-Message"));
 	                    		TitleManager.sendSubTitle(p, raw1);
 	                    		}
-	                    	if (plugin.config.getBoolean("Sound-Alert")) {
-	                    		String sound = plugin.config.getString("Sound-Alert-Sound");
+	                    	if (plugin.config.getBoolean("Sound-Alert.Enabled")) {
+	                    		String sound = plugin.config.getString("Sound-Alert.Sound");
 	                    		p.getWorld().playSound(playerLoc,Sound.valueOf(sound),1, 0);  
 	                    		
 	                    	} else {
@@ -66,4 +147,5 @@ public class BlockBreak implements Listener{
 			}
 	    }
 	}
+		
 }

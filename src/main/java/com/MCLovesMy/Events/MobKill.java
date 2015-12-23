@@ -1,5 +1,6 @@
 package com.MCLovesMy.Events;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 import org.bukkit.ChatColor;
@@ -26,14 +27,97 @@ public class MobKill implements Listener{
 		this.plugin = plugin;
 	}
 	
+	private static ArrayList<String> messageAlert1 = new ArrayList<String>();
+	private static ArrayList<String> messageAlert2 = new ArrayList<String>();
+	private static ArrayList<String> messageAlert3 = new ArrayList<String>();
+	private static ArrayList<String> messageAlert4 = new ArrayList<String>();
+	
 	@EventHandler
 	public void onEntityDeath(EntityDeathEvent e){
         Entity entity = e.getEntity();
+		EntityDamageByEntityEvent entityDamageByEntityEvent = (EntityDamageByEntityEvent) entity.getLastDamageCause();
+    	Player killer = (Player)entityDamageByEntityEvent.getDamager();
+        UUID uuid = killer.getUniqueId();
+        
+        ItemStack[] contents = killer.getInventory().getContents();
+		
+		int count = 0;
+		for (int i = 0; i < contents.length; i++) {
+		    if (contents[i] == null)
+		        count++;
+		}
+		
+		double invPercent = (100. / 36);
+		int invSlotsFull = 36 - count;
+		int invSlotsPercentFull = (int) (invPercent * invSlotsFull);
+		
+		String invSlotsFullPercent = invSlotsPercentFull + "%";
+		
+		//alert1
+        if (invSlotsFull == (plugin.config.getInt("Inventory-Part-Alert.Alert1.Slots-Filled"))) {
+        	if (!messageAlert1.contains(killer.getName())) {
+             killer.sendMessage(ChatColor.BLUE + "Your inventory is filled for " + invSlotsFullPercent + "!");
+             messageAlert1.add(killer.getName());
+        	}
+        }
+        if (invSlotsFull >= (plugin.config.getInt("Inventory-Part-Alert.Alert1.Slots-Filled")) + 1){
+        	messageAlert1.remove(killer.getName());
+        }
+        
+        if (invSlotsFull <= (plugin.config.getInt("Inventory-Part-Alert.Alert1.Slots-Filled")) - 1){
+        	messageAlert1.remove(killer.getName());
+        }
+        
+        //alert2
+        if (invSlotsFull == (plugin.config.getInt("Inventory-Part-Alert.Alert2.Slots-Filled"))) {
+        	if (!messageAlert2.contains(killer.getName())) {
+             killer.sendMessage(ChatColor.BLUE + "Your inventory is filled for " + invSlotsFullPercent + "!");
+             messageAlert2.add(killer.getName());
+        	}
+        }
+        if (invSlotsFull >= (plugin.config.getInt("Inventory-Part-Alert.Alert2.Slots-Filled")) + 1){
+        	messageAlert2.remove(killer.getName());
+        }
+        
+        if (invSlotsFull <= (plugin.config.getInt("Inventory-Part-Alert.Alert1.Slots-Filled")) - 1){
+        	messageAlert2.remove(killer.getName());
+        }
+        
+        //alert3
+        if (invSlotsFull == (plugin.config.getInt("Inventory-Part-Alert.Alert3.Slots-Filled"))) {
+        	if (!messageAlert3.contains(killer.getName())) {
+             killer.sendMessage(ChatColor.BLUE + "Your inventory is filled for " + invSlotsFullPercent + "!");
+             messageAlert3.add(killer.getName());
+        	}
+        }
+        if (invSlotsFull >= (plugin.config.getInt("Inventory-Part-Alert.Alert3.Slots-Filled")) + 1){
+        	messageAlert3.remove(killer.getName());
+        }
+        
+        if (invSlotsFull <= (plugin.config.getInt("Inventory-Part-Alert.Alert3.Slots-Filled")) - 1){
+        	messageAlert3.remove(killer.getName());
+        }
+        
+        //alert4
+        if (invSlotsFull == (plugin.config.getInt("Inventory-Part-Alert.Alert4.Slots-Filled"))) {
+        	if (!messageAlert4.contains(killer.getName())) {
+             killer.sendMessage(ChatColor.BLUE + "Your inventory is filled for " + invSlotsFullPercent + "!");
+             messageAlert4.add(killer.getName());
+        	}
+        }
+        if (invSlotsFull >= (plugin.config.getInt("Inventory-Part-Alert.Alert4.Slots-Filled")) + 1){
+        	messageAlert4.remove(killer.getName());
+        }
+        
+        if (invSlotsFull <= (plugin.config.getInt("Inventory-Part-Alert.Alert4.Slots-Filled")) - 1){
+        	messageAlert4.remove(killer.getName());
+        }
+        
+        
+        
+        
 		if(entity.getLastDamageCause() instanceof EntityDamageByEntityEvent){ //the dead thing was killed by an entity
-			EntityDamageByEntityEvent entityDamageByEntityEvent = (EntityDamageByEntityEvent) entity.getLastDamageCause();
             if(entityDamageByEntityEvent.getDamager() instanceof Player){ //the killer was a player
-            	Player killer = (Player)entityDamageByEntityEvent.getDamager();
-                UUID uuid = killer.getUniqueId();
                 if (killer.hasPermission("InventoryFilled.alert")) {
         		if (plugin.playerdata.getBoolean("Players." + uuid + ".Alerts") == true) {
         		if (!killer.getGameMode().equals(GameMode.CREATIVE)) {
@@ -47,7 +131,7 @@ public class MobKill implements Listener{
     	                        }
     	                    }
     	                    if (i==34) {
-    	                    	if(plugin.config.getBoolean("Chat-Alert")) {
+    	                    	if(plugin.config.getBoolean("Chat-Alert.Enabled")) {
     	                        killer.sendMessage(ChatColor.RED + plugin.messages.getString("Actions.MobKill.Chat-Alert-Message"));
     	                        return;
     		                   	} else {
@@ -85,7 +169,7 @@ public class MobKill implements Listener{
     	                        }
     	                    }
     	                    if (i==34) {
-    	                    	if (plugin.config.getBoolean("Title-Alert")) {
+    	                    	if (plugin.config.getBoolean("Title-Alert.Enabled")) {
     	                    		TitleManager.sendTimings(killer, 5, 30, 15);
     	                    		String raw2 = TellrawConverterLite.convertToJSON(ChatColor.RED + plugin.messages.getString("Actions.MobKill.Title-Alert-Message"));
     	                    		TitleManager.sendTitle(killer, raw2);
@@ -126,8 +210,8 @@ public class MobKill implements Listener{
     	                        }
     	                    }
     	                    if (i==34) {
-    	                    	if (plugin.config.getBoolean("Sound-Alert")) {
-    	                    		String sound = plugin.config.getString("Sound-Alert-Sound");
+    	                    	if (plugin.config.getBoolean("Sound-Alert.Enabled")) {
+    	                    		String sound = plugin.config.getString("Sound-Alert.Sound");
     	                    		Location loc = killer.getLocation();
     	                    		killer.getWorld().playSound(loc,Sound.valueOf(sound),1, 0);  
     	                    		return;
